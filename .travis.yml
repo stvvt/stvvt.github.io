@@ -4,7 +4,7 @@ branches:
 sudo: false
 language: node_js
 node_js:
-  - stable
+  - 12.9.0
 before_script:
   - git config --global user.name 'stvvt'
   - git config --global user.email 'stefan.bg@gmail.com'
