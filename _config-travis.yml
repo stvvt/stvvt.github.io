@@ -1,0 +1,3 @@
+deploy:
+  type: git
+  repo: https://GITHUB_TOKEN@github.com/stvvt/stvvt.github.io.git

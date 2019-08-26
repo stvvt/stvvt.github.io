@@ -5,6 +5,12 @@ sudo: false
 language: node_js
 node_js:
   - stable
+before_script:
+  - git config --global user.name 'stvvt'
+  - git config --global user.email 'stefan.bg@gmail.com'
+  - sed -i "s/GITHUB_TOKEN/${GITHUB_TOKEN}/" _config.yml
 script:
   - yarn
-  - yarn deploy
+  - yarn generate
+after_script:
+  - yarn deploy --config _config.yml,_config-travis.yml
