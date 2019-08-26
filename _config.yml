@@ -74,15 +74,13 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: octo
-sidebars:
-  recent: true # boolean to display 10 most recent posts
-  featured: true # boolean to list all posts with tag 'featured'
-  github: stvvt # string to point to a Github profile | false to disable
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:stvvt/stvvt.github.io.git
+  branch: master
 
 marked:
   gfm: true
