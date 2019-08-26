@@ -8,7 +8,7 @@ node_js:
 before_script:
   - git config --global user.name 'stvvt'
   - git config --global user.email 'stefan.bg@gmail.com'
-  - sed -i "s/GITHUB_TOKEN/${GITHUB_TOKEN}/" _config.yml
+  - sed -i "s/GITHUB_TOKEN/${GITHUB_TOKEN}/" _config-travis.yml
 script:
   - yarn
   - yarn generate
