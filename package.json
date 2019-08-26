@@ -9,7 +9,7 @@
     "start": "rimraf db.json && hexo server",
     "new": "hexo new",
     "generate": "hexo generate",
-    "deploy": "hexo deploy"
+    "deploy": "hexo deploy --generate"
   },
   "dependencies": {
     "hexo": "^3.9.0",
