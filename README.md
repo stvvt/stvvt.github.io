@@ -12,7 +12,7 @@ This is my personal blog.
 1. Clone this repo
 1. Run to install hexo dependencies
     ```
-    $ docker-compose run --rm blog npm i
+    $ ./run.sh npm i
     ```
 1. Run local server
     ```
@@ -23,7 +23,7 @@ This is my personal blog.
 
 ## Create New Post
 ```
-$ docker-compose run --rm blog npm new [post|draft] <title>
+$ ./hexo.sh new [post|draft] <title>
 ```
 then open `source/(_posts|_drafts)/<title>.md` in a text editor.
 
