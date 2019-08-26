@@ -1,3 +1,6 @@
+branches:
+  only:
+    - source
 sudo: false
 language: node_js
 node_js:
