@@ -1,6 +1,12 @@
-# My Personal Blog
+This is my personal blog.
 
-## How to Blog (notes to myself)
+[![Build Status](https://travis-ci.org/stvvt/stvvt.github.io.svg?branch=source)](https://travis-ci.org/stvvt/stvvt.github.io)
+
+# How to Blog
+
+(notes to myself)
+
+## Initial Set Up
 
 0. (prerequisites) docker and docker-compose installed.
 1. Clone this repo
@@ -15,15 +21,13 @@
 
     Goto http://localhost:4000 and make sure everything is OK.
 
-## Common Tasks
-
-### Create New Post
+## Create New Post
 ```
 $ docker-compose run --rm blog npm new [post|draft] <title>
 ```
 then open `source/(_posts|_drafts)/<title>.md` in a text editor.
 
-### Deploy
+## Deploy
 ```
 $ git push
 ```
