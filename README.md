@@ -21,7 +21,7 @@
 ```
 $ docker-compose run --rm blog npm new [post|draft] <title>
 ```
-then open `<title>.md` in a text editor.
+then open `source/(_posts|_drafts)/<title>.md` in a text editor.
 
 ### Deploy
 ```
