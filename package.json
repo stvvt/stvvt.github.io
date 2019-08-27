@@ -9,7 +9,7 @@
     "start": "concurrently \"hexo generate --bail --watch\" \"live-server --port=4000 public\"",
     "new": "hexo new",
     "generate": "hexo generate",
-    "deploy": "hexo generate --bail --generate",
+    "deploy": "hexo generate --bail --deploy",
     "hexo": "hexo"
   },
   "dependencies": {
