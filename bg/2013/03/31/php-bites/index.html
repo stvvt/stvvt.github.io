@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="bg"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="bg"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="bg"><!--<![endif]-->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>PHP хапе</title>
+
+    <meta name="author" content="Стефан">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="https://stvvt.github.io/bg/2013/03/31/php-bites/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146444187-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-146444187-1');
+    </script>
+
+
+    <script src="/js/modernizr-2.0.js"></script>
+
+    <script src="/js/jquery-1.9.1.js"></script>
+
+    
+
+    <script src="/js/octo.js"></script>
+
+    <link rel="stylesheet" href="/css/octo.css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+    
+
+<link rel="stylesheet" href="/css/prism-vs.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">Блогът на Стефан</a></h1>
+        
+            <h2>Само сухото. Без глупости</h2>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="http://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:/">
+            <input class="search" type="text" name="q" results="0" placeholder="Търсене">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">Блог</a></li>
+        
+            <li><a href="/archives">Архив</a></li>
+        
+    </ul>
+</nav>
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">PHP хапе</h1>
+            <p class="meta">
+                <time datetime="2013-03-31T14:29:14.000Z" data-updated="true">Sun Mar 31 2013</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <p>Всички PHP програмисти знаят, че (от PHP 5) обектите се присвояват по reference, всичко останало - по стойност. Подобно
+нещо е твърде важно и с твърде големи последствия, за да ти убегне или да го забравиш. Малко по-редки са случаите на
+присвояване на масиви, чиито елементи са референции, но и там нещата са ясни и предсказуеми. Днес обаче PHP ме ухапа!
+Натъкнах на ситуация, в която елементите на масив се държаха като референции, без всъщност да са такива. Това ми се
+стори много странно и нелогично. Отне ми почти целия следобяд в търсене на причината и на начин за заобикалянето й.
+Реших да споделя, с надеждата да спестя някому излишни боричкания.</p>
+<a id="more"></a>
+
+<p>Да вземем един прост пример:</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+
+<span class="token variable">$v1</span> <span class="token operator">=</span> <span class="token string">'first'</span><span class="token punctuation">;</span> <span class="token variable">$v2</span> <span class="token operator">=</span> <span class="token string">'second'</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Масив от референции</span>
+<span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token variable">$v1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token variable">$v2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Копираме $arr в $copyArr</span>
+<span class="token variable">$copyArr</span> <span class="token operator">=</span> <span class="token variable">$arr</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Копието съдържа същите референции и промяната на неговите елементи</span>
+<span class="token comment" spellcheck="true">// се отразява навсякъде</span>
+<span class="token variable">$copyArr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'third'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token variable">$v1</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">// -> 'third';</span>
+<span class="token keyword">echo</span> <span class="token variable">$origArr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">// -> 'third';</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Магия тук няма. Въпреки, че присвояването на масиви е по стойност, елементите му си остават референции. За това
+промяната на елемент на копието се отразява и върху съответния елемент на оригинала. Чудо голямо. Малко е неявно за
+не-тренирано око, но като цяло всичко е наред.</p>
+<h2 id="Е-и-Какъв-е-проблемът"><a href="#Е-и-Какъв-е-проблемът" class="headerlink" title="Е, и!? Какъв е проблемът?"></a>Е, и!? Какъв е проблемът?</h2><p>Ето друг пример:</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token comment" spellcheck="true">// Обикновен PHP масив от стойности</span>
+<span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'first'</span><span class="token punctuation">,</span> <span class="token string">'second'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Копираме $arr в $copyArr</span>
+<span class="token variable">$copyArr</span> <span class="token operator">=</span> <span class="token variable">$arr</span><span class="token punctuation">;</span>
+
+<span class="token variable">$copyArr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'third'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// -> "first" (разбира се)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Фактите са факти - PHP присвоява масиви по стойност и толкова. Пак няма чудеса. Но да добавим само един ред към горния
+пример. Един напълно безобиден ред …</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token comment" spellcheck="true">// Обикновен PHP масив от стойности</span>
+<span class="token variable">$arr</span> <span class="token operator">=</span> <span class="token keyword">array</span><span class="token punctuation">(</span><span class="token string">'first'</span><span class="token punctuation">,</span> <span class="token string">'second'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Това е новодобавеният ред - обикновена рефенеция към първия елемент</span>
+<span class="token variable">$ref</span> <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// &lt;&lt;&lt; НОВО</span>
+
+<span class="token comment" spellcheck="true">// После продължава същото ... Копираме $arr в $copyArr</span>
+<span class="token variable">$copyArr</span> <span class="token operator">=</span> <span class="token variable">$arr</span><span class="token punctuation">;</span>
+
+<span class="token variable">$copyArr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'third'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// -> "third" (разб... Опа-а! КАКВООО!?)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Ето това ми изяде целия следобяд (при това неделния, но … това е друга тема). По някаква причина, след присвояването по
+референция, което добавихме в последния пример, поведението на масивите при копиране се променя, при това радикално.
+Очевидно реда</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token variable">$ref</span> <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>има страничен ефект върху самия $arr - става това, което нормално би станало ако $arr[0] е референция. Иначе казано,
+след $ref = &amp;$arr[0], $arr[0] магически се превръща в референция, въпреки, че преди това е най-обкиновена скаларна
+стойност. Това, поне за мен, е странно и неочаквано. Свикнал съм да търся страничния ефект от присвояванията в лявата им
+част, не и в дясната.</p>
+<p>Изрично подчертавам, че става дума за PHP 5.4.6 под Ubuntu 12.10. За сега нямам информация дали същото е в сила за други
+версии на PHP или в други ОС. Ако науча, ще пиша тук.</p>
+<h2 id="И-какво-правим-сега"><a href="#И-какво-правим-сега" class="headerlink" title="И какво правим сега?"></a>И какво правим сега?</h2><p>Възможно решение: изрично заместване на всеки елемент с неговата де-референсирана стойност:</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+<span class="token comment" spellcheck="true">/**
+* Премахва референциите от масив и ги заменя с техните стойности
+*/</span>
+<span class="token keyword">function</span> <span class="token function">dereference</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">is_array</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$arr</span> <span class="token keyword">as</span> <span class="token variable">$i</span><span class="token operator">=</span><span class="token operator">></span><span class="token variable">$v</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">unset</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token variable">$i</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">dereference</span><span class="token punctuation">(</span><span class="token variable">$v</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token variable">$arr</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token variable">$copyArr</span> <span class="token operator">=</span> <span class="token function">dereference</span><span class="token punctuation">(</span><span class="token variable">$arr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$copyArr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'third'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token variable">$arr</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">// -> "first" (както и трябва)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Надявам се това да е от полза на някого.</p>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Публикувано от <span class="fn">Стефан</span></span>
+                <time datetime="2013-03-31T14:29:14.000Z" data-updated="true">Sun Mar 31 2013</time>
+                
+            </p>
+            <div class="sharing">
+    
+</div>
+
+            <p class="meta">
+                
+                <a class="basic-alignment left" href="/bg/2019/08/27/blog-redeployed/" title="Previous Post: Блогът - преиздаден">« Блогът - преиздаден</a>
+                
+
+                
+                <a class="basic-alignment right" href="/bg/2012/10/01/php-interfaces/" title="Previous Post: Интерфейсите на PHP">Интерфейсите на PHP »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+        <section>
+    <h1>Коментари</h1>
+
+    <div id="disqus_thread"></div>
+
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT
+         *  THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR
+         *  PLATFORM OR CMS.
+         *
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:
+         *  https://disqus.com/admin/universalcode/#configuration-variables
+         */
+        var canonicalUrl = "https://stvvt.github.io/bg/2013/03/31/php-bites/";
+
+        var disqus_config = function () {
+           // Replace PAGE_URL with your page's canonical URL variable
+           this.page.url = canonicalUrl;
+
+           // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+           this.page.identifier = canonicalUrl;
+        };
+
+        (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+            var d = document, s = d.createElement('script');
+
+            // IMPORTANT: Replace EXAMPLE with your forum shortname!
+            s.src = 'https://blogstefan.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+</section>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Последни публикации</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/bg/2019/08/27/blog-redeployed/">Блогът - преиздаден</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2013/03/31/php-bites/">PHP хапе</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2012/10/01/php-interfaces/">Интерфейсите на PHP</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2011/12/26/first-post/">Моят първи пост</a></li></ul>
+</section><section class="even">
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+        <li class="loading">Status updating&#8230;</li>
+    </ul>
+
+    <a href="https://github.com/stvvt">@stvvt</a> on GitHub
+    <script>
+        $(document).ready(function(){
+            const options = {
+                user: 'stvvt',
+                count: 5,
+                skip_forks: true,
+                target: '#gh_repos'
+            }
+
+            function escapeHtml(str) {
+                return $('<div/>').text(str).html();
+            }
+
+            function render(target, repos){
+                let i, fragment = '', t = $(target)[0];
+
+                for(i = 0; i < repos.length; i++) {
+                    fragment += '<li><a href="'+repos[i].html_url+'">'+repos[i].name+'</a><p>'+escapeHtml(repos[i].description||'')+'</p></li>';
+                }
+                t.innerHTML = fragment;
+            }
+
+            $.ajax({
+                url: "https://api.github.com/users/"+options.user+"/repos?sort=pushed&callback=?",
+                dataType: 'jsonp',
+                error: function (err) {
+                    $(options.target + ' li.loading').addClass('error').text("Error loading feed");
+                },
+                success: function(data) {
+                    var repos = [];
+                    if (!data || !data.data) { return; }
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (options.skip_forks && data.data[i].fork) { continue; }
+                        repos.push(data.data[i]);
+                    }
+                    if (options.count) { repos.splice(options.count); }
+                    render(options.target, repos);
+                }
+            });
+        });
+    </script>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2020 - Стефан -
+        <span class="credit">Generated using <a href="https://github.com/jbreckmckye/hexo-theme-octo">Octo theme</a> for <a href="http://hexo.io">Hexo</a></span>
+    </p>
+</footer>
+
+
+
+</body>
+</html>

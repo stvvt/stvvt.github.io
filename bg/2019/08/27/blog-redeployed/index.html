@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="bg"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="bg"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="bg"><!--<![endif]-->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>Блогът - преиздаден</title>
+
+    <meta name="author" content="Стефан">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="https://stvvt.github.io/bg/2019/08/27/blog-redeployed/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146444187-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-146444187-1');
+    </script>
+
+
+    <script src="/js/modernizr-2.0.js"></script>
+
+    <script src="/js/jquery-1.9.1.js"></script>
+
+    
+
+    <script src="/js/octo.js"></script>
+
+    <link rel="stylesheet" href="/css/octo.css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+    
+
+<link rel="stylesheet" href="/css/prism-vs.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">Блогът на Стефан</a></h1>
+        
+            <h2>Само сухото. Без глупости</h2>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="http://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:/">
+            <input class="search" type="text" name="q" results="0" placeholder="Търсене">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">Блог</a></li>
+        
+            <li><a href="/archives">Архив</a></li>
+        
+    </ul>
+</nav>
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">Блогът - преиздаден</h1>
+            <p class="meta">
+                <time datetime="2019-08-27T14:39:54.000Z" data-updated="true">Tue Aug 27 2019</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <p>Мина известно време от последната ми публикация. За да бъдем точни - минаха 2339 дена или почти шест години и половина
+от тогава. Бебетата, изплакали за пръв път когато се оплаках, че <a href="/bg/2013/03/31/php-bites/" title="PHP Хапе">PHP Хапе</a>, наесен ще тръгват
+на училище. Как лети това време … Както и да е. Едно е ясно - за блогър не ставам. С 0.3 поста на година не бих покрил
+и най-широките схващания :D</p>
+<p>Въпреки това, желанието ми за публицизъм остана. Поне в частта си “инструменти за публикуване”. Тук ще опиша как седнах
+една събота и си сглобих новия блог.</p>
+<a id="more"></a>
+
+<h2 id="Какво-исках"><a href="#Какво-исках" class="headerlink" title="Какво исках?"></a>Какво исках?</h2><ul>
+<li>Лесно създаване и редактиране на съдържание от всяко устройство</li>
+<li>Лесно публикуване онлайн</li>
+<li>Безболезнено генериране на изчистен HTML, без изненади във форматирането -
+<a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a></li>
+<li>Без инфраструктура за поддържане - сървъри, бази данни и пр. (докато пишех това, се натъкнах на новия за мен термин
+<a href="https://jamstack.org/" target="_blank" rel="noopener">JAMstack</a> - интересна, макар и доста по-обширна тема. Оказа се, че съм искал да имам JAMStack
+blog.)</li>
+<li>Скорост и скалируемост (по прицип, не че ми трябва такава)</li>
+<li>Възможност контролирани промени по съдържанието от трети лица</li>
+<li>Нещо съвременно с прилична поддръжка</li>
+<li>Да използва познат за мен стек, така че да разбирам как работи.</li>
+</ul>
+<h2 id="Какво-имах"><a href="#Какво-имах" class="headerlink" title="Какво имах?"></a>Какво имах?</h2><p>Преди години се спрях на <a href="http://octopress.org/" target="_blank" rel="noopener">Octopress</a>. Да си призная, избрах го основно заради приятната изчистена
+тема по подразбиране. Той отговаря на повечето ми изисквания, но с изключение на последните две:</p>
+<ul>
+<li>последният му commit е от 23 февруари 2016 (преди повече от 3 години), има 88 отворени и отлежаващи pull request-a,
+179 отворени issues. Накратко, не изглежда нещо с прилична поддръжка към днешна дата</li>
+<li>използва Ruby - нищо лошо в това, но определено с Ruby сме само бегли познати</li>
+</ul>
+<p>Последното определено се оказа препъни-камък за мен. След първоначалните усилия бях някак инсталирал Ruby и необходимите 
+Gems, и като цяло го бях подкарал. Обаче в редките случаи през годините, в които ми идваше да понапиша нещо, все удрях
+на камък в опитите си да го подкарам локално и в края на краищата се отказвах.</p>
+<p>И така - до тази събота, когато като от нищото просветна искра на ентусиазъм и реших, че е време да заменя Octopress с
+нещо друго.</p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p><a href="https://hexo.io" target="_blank" rel="noopener">https://hexo.io</a></p>
+<p>Не че търсих дълго. Изборът не е резултат от задълбочено проучване, сравняване и анализиране. Беше едно от първите
+неща, което ми попадна. Определено отговаря на изискванията по-горе, включително и на последните две - познат стек,
+активна разработка. Не мога да кажа, че е някакво бижу - имахме (и още имаме) известни разправии с него, така че за сега
+е просто експеримент. Ако не се харесаме - няма лошо, списъка с кандидати е достатъчно дълъг - <a href="https://www.staticgen.com" target="_blank" rel="noopener">https://www.staticgen.com</a>
+:)</p>
+<h2 id="Какво-се-получи"><a href="#Какво-се-получи" class="headerlink" title="Какво се получи"></a>Какво се получи</h2><p>Резултатът е пред вас. По-точно - видимата част, за която аз нямам заслуги. Просто визуална тема, която предпочетох. 
+По-интересното е не чак толкова очевидно.</p>
+<ul>
+<li>Markdown съдържанието на всички публикации е на сигурно място в GitHub. Както и всички евентуални промени по него.</li>
+<li>Публикуването на ново съдържание и на промени по съществуващото става става с най-обикновен, банален <pre class="line-numbers language-sh"><code class="language-sh">$ git push<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+Толкоз! За целия процес на генериране на HTML и качването му на живо се грижи Travis CI, който се задейства
+автоматично при <code>git push</code></li>
+<li>Нещо повече: за създаване и редактиране на публикации може да се използва директно потребителският интерфейс на
+GitHub; просто се създава (или редактира) <code>*.md</code> файл в директорията <code>source/_posts</code> (или <code>source/_drafts</code>) и след
+запис - промените магически се оказват онлайн.</li>
+<li>Съдържанието, което се сервира е изцяло статично - няма код, който да го генерира, няма база данни, от която да се
+чете. Чист и прост HTML.</li>
+<li>Генерираните статични HTML-и могат да се качат на всеки CDN - GitHub pages (където са в момента), AWS S3, Firebase
+Hosting, Heroku, Netlify - изберете си. Всичко, което трябва да се промени за да се качва на ново място е Travis CI
+конфигурационния файл</li>
+</ul>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Публикувано от <span class="fn">Стефан</span></span>
+                <time datetime="2019-08-27T14:39:54.000Z" data-updated="true">Tue Aug 27 2019</time>
+                
+            </p>
+            <div class="sharing">
+    
+</div>
+
+            <p class="meta">
+                
+
+                
+                <a class="basic-alignment right" href="/bg/2013/03/31/php-bites/" title="Previous Post: PHP хапе">PHP хапе »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+        <section>
+    <h1>Коментари</h1>
+
+    <div id="disqus_thread"></div>
+
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT
+         *  THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR
+         *  PLATFORM OR CMS.
+         *
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:
+         *  https://disqus.com/admin/universalcode/#configuration-variables
+         */
+        var canonicalUrl = "https://stvvt.github.io/bg/2019/08/27/blog-redeployed/";
+
+        var disqus_config = function () {
+           // Replace PAGE_URL with your page's canonical URL variable
+           this.page.url = canonicalUrl;
+
+           // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+           this.page.identifier = canonicalUrl;
+        };
+
+        (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+            var d = document, s = d.createElement('script');
+
+            // IMPORTANT: Replace EXAMPLE with your forum shortname!
+            s.src = 'https://blogstefan.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+</section>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Последни публикации</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/bg/2019/08/27/blog-redeployed/">Блогът - преиздаден</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2013/03/31/php-bites/">PHP хапе</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2012/10/01/php-interfaces/">Интерфейсите на PHP</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2011/12/26/first-post/">Моят първи пост</a></li></ul>
+</section><section class="even">
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+        <li class="loading">Status updating&#8230;</li>
+    </ul>
+
+    <a href="https://github.com/stvvt">@stvvt</a> on GitHub
+    <script>
+        $(document).ready(function(){
+            const options = {
+                user: 'stvvt',
+                count: 5,
+                skip_forks: true,
+                target: '#gh_repos'
+            }
+
+            function escapeHtml(str) {
+                return $('<div/>').text(str).html();
+            }
+
+            function render(target, repos){
+                let i, fragment = '', t = $(target)[0];
+
+                for(i = 0; i < repos.length; i++) {
+                    fragment += '<li><a href="'+repos[i].html_url+'">'+repos[i].name+'</a><p>'+escapeHtml(repos[i].description||'')+'</p></li>';
+                }
+                t.innerHTML = fragment;
+            }
+
+            $.ajax({
+                url: "https://api.github.com/users/"+options.user+"/repos?sort=pushed&callback=?",
+                dataType: 'jsonp',
+                error: function (err) {
+                    $(options.target + ' li.loading').addClass('error').text("Error loading feed");
+                },
+                success: function(data) {
+                    var repos = [];
+                    if (!data || !data.data) { return; }
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (options.skip_forks && data.data[i].fork) { continue; }
+                        repos.push(data.data[i]);
+                    }
+                    if (options.count) { repos.splice(options.count); }
+                    render(options.target, repos);
+                }
+            });
+        });
+    </script>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2020 - Стефан -
+        <span class="credit">Generated using <a href="https://github.com/jbreckmckye/hexo-theme-octo">Octo theme</a> for <a href="http://hexo.io">Hexo</a></span>
+    </p>
+</footer>
+
+
+
+</body>
+</html>

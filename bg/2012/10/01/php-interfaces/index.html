@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="bg"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="bg"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="bg"><!--<![endif]-->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>Интерфейсите на PHP</title>
+
+    <meta name="author" content="Стефан">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="https://stvvt.github.io/bg/2012/10/01/php-interfaces/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146444187-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-146444187-1');
+    </script>
+
+
+    <script src="/js/modernizr-2.0.js"></script>
+
+    <script src="/js/jquery-1.9.1.js"></script>
+
+    
+
+    <script src="/js/octo.js"></script>
+
+    <link rel="stylesheet" href="/css/octo.css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+    
+
+<link rel="stylesheet" href="/css/prism-vs.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">Блогът на Стефан</a></h1>
+        
+            <h2>Само сухото. Без глупости</h2>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="http://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:/">
+            <input class="search" type="text" name="q" results="0" placeholder="Търсене">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">Блог</a></li>
+        
+            <li><a href="/archives">Архив</a></li>
+        
+    </ul>
+</nav>
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">Интерфейсите на PHP</h1>
+            <p class="meta">
+                <time datetime="2012-10-01T06:02:00.000Z" data-updated="true">Mon Oct 01 2012</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <p>PHP поддържа интерфейси още от версия 5.0. Това безспорно е солидна крачка напред към утвърждаването му като истински
+обектно-ориентиран език за програмиране. Освен това обаче, PHP винаги е бил и ще бъде динамичен език - там е неговата
+сила. Тези две характеристики често влизат в конфликт чието разрешаване налага компромиси. Случаят с интерфейсите е
+точно такъв. Но дали е намерен оптималният балас?</p>
+<a id="more"></a>
+
+<p>Да се фокусираме за миг върху семантиката на думата <strong>реализира</strong>:</p>
+<blockquote>
+<p>Обекта <code>$a</code> от класа <code>A</code> <strong>реализира</strong> метода <code>foo()</code> точно тогава, когато израза <code>$a-&gt;foo()</code> води до изпълненето на
+определени (в спецификацията на метода <code>foo()</code>) действия и връщането на определен резултат.</p>
+</blockquote>
+<p>Това е всичко - ни повече - ни по-малко. Друг начин да се изкаже същото е: Обектът <code>$a</code> реагира адекватно на
+<em>съобщението</em> <code>foo</code>.</p>
+<p>По нататък, по дефиниция, интерфейс е фиксиран набор от съобщения - т.е. набор от методи + техните параметри + техните
+резултати. Един клас <strong>реализира</strong> (на англ. - implements) даден интерфейс точно тогава, когато реагира адекватно на
+всички съобщения, дефинирани в интерфейса.</p>
+<p>Да видим сега как стоят нещата в PHP с помощта на прост пример. Интефейса <code>I</code> има 
+само един метод <code>foo()</code> и той е без параметри. Имаме и клас <code>A</code>:</p>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">I</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token keyword">class</span> <span class="token class-name">A</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__call</span><span class="token punctuation">(</span><span class="token variable">$method</span><span class="token punctuation">,</span> <span class="token variable">$args</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$method</span> <span class="token operator">==</span> <span class="token string">'foo'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">protected</span> <span class="token keyword">function</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Използваме “магическия метод”
+<a href="http://www.php.net/manual/bg/language.oop5.overloading.php#language.oop5.overloading.methods" target="_blank" rel="noopener">__call()</a> който се
+извиква всеки път, когато се извика несъществуващ или недостъпен метод на класа.</p>
+<p>Да си отговорим сега на два въпроса:</p>
+<ol>
+<li><p><strong>Реализира ли класа <code>A</code> интерфейса <code>I</code>?</strong></p>
+<p>Очевидно - да! Фрагментът <code>$a = new A(); $a-&gt;foo()</code> е напълно леглен код на PHP. В случая той ще доведе до
+извикването на защитения метод <code>А::bar()</code>, но това са изцяло реализационни детайли. Погледнато отвън, <code>$a</code> има
+публичен метод<code>foo()</code> и той може да бъде извикван напълно легално.</p>
+</li>
+<li><p><strong>Допустимо ли е да декларираме, че <code>class A implements I</code>?</strong></p>
+<p>Ето тук вече идва проблема. Ако го направим, резултатът е фатална грешка веднага щом кода на клас <code>A</code> бъде зареден.</p>
+</li>
+</ol>
+<p>Така достигнахме до парадокс - класа <code>A</code> де-факто поддържа интерфейс <code>I</code>, но очевидно не го прави начин, който се
+харесва на PHP интерпретатора и поради това няма шанс да го заяви на околния свят. </p>
+<p>А това определено е проблем, който, макар и да звучи малко абстрактно си има съвсем конкретни практически измерения.
+Например, в един от <a href="https://github.com/bgerp/bgerp" target="_blank" rel="noopener">проектите</a>, по които работя напоследък, точно по тази причина с
+нежелание взехме решение изобщо да не използваме PHP интерфейси.</p>
+<p>Според мен причината за този проблем е конфликта, за който споменах в началото - между обектната ориентираност и
+динамичната същност на PHP. Като динамичен език, PHP позволява динамично “инжектиране” на методи в класовете по време на
+изпълнение. Ако се направи компромис с динамичността, целостта ще се възстанови. Но това в случая означава да се
+премахне магическия метод
+<a href="http://www.php.net/manual/bg/language.oop5.overloading.php#language.oop5.overloading.methods" target="_blank" rel="noopener">__call()</a> и въпреки
+широко разпространеното мнение, че “магическите” методи на PHP са зло, аз изобщо не го споделям - все пак за тази цел си
+има Java! </p>
+<p>Вероятно ако PHP интерпретатора не беше така (в случая - неадекватно) рестриктивен, или поне позволяваше да му се укаже
+кога да не бъде, всичко щеше да е далеч по- чисто.</p>
+<p>Бъдещето ще покаже …</p>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Публикувано от <span class="fn">Стефан</span></span>
+                <time datetime="2012-10-01T06:02:00.000Z" data-updated="true">Mon Oct 01 2012</time>
+                
+            </p>
+            <div class="sharing">
+    
+</div>
+
+            <p class="meta">
+                
+                <a class="basic-alignment left" href="/bg/2013/03/31/php-bites/" title="Previous Post: PHP хапе">« PHP хапе</a>
+                
+
+                
+                <a class="basic-alignment right" href="/bg/2011/12/26/first-post/" title="Previous Post: Моят първи пост">Моят първи пост »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+        <section>
+    <h1>Коментари</h1>
+
+    <div id="disqus_thread"></div>
+
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT
+         *  THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR
+         *  PLATFORM OR CMS.
+         *
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT:
+         *  https://disqus.com/admin/universalcode/#configuration-variables
+         */
+        var canonicalUrl = "https://stvvt.github.io/bg/2012/10/01/php-interfaces/";
+
+        var disqus_config = function () {
+           // Replace PAGE_URL with your page's canonical URL variable
+           this.page.url = canonicalUrl;
+
+           // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+           this.page.identifier = canonicalUrl;
+        };
+
+        (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+            var d = document, s = d.createElement('script');
+
+            // IMPORTANT: Replace EXAMPLE with your forum shortname!
+            s.src = 'https://blogstefan.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+</section>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Последни публикации</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/bg/2019/08/27/blog-redeployed/">Блогът - преиздаден</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2013/03/31/php-bites/">PHP хапе</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2012/10/01/php-interfaces/">Интерфейсите на PHP</a></li><li class="post-list-item"><a class="post-list-link" href="/bg/2011/12/26/first-post/">Моят първи пост</a></li></ul>
+</section><section class="even">
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+        <li class="loading">Status updating&#8230;</li>
+    </ul>
+
+    <a href="https://github.com/stvvt">@stvvt</a> on GitHub
+    <script>
+        $(document).ready(function(){
+            const options = {
+                user: 'stvvt',
+                count: 5,
+                skip_forks: true,
+                target: '#gh_repos'
+            }
+
+            function escapeHtml(str) {
+                return $('<div/>').text(str).html();
+            }
+
+            function render(target, repos){
+                let i, fragment = '', t = $(target)[0];
+
+                for(i = 0; i < repos.length; i++) {
+                    fragment += '<li><a href="'+repos[i].html_url+'">'+repos[i].name+'</a><p>'+escapeHtml(repos[i].description||'')+'</p></li>';
+                }
+                t.innerHTML = fragment;
+            }
+
+            $.ajax({
+                url: "https://api.github.com/users/"+options.user+"/repos?sort=pushed&callback=?",
+                dataType: 'jsonp',
+                error: function (err) {
+                    $(options.target + ' li.loading').addClass('error').text("Error loading feed");
+                },
+                success: function(data) {
+                    var repos = [];
+                    if (!data || !data.data) { return; }
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (options.skip_forks && data.data[i].fork) { continue; }
+                        repos.push(data.data[i]);
+                    }
+                    if (options.count) { repos.splice(options.count); }
+                    render(options.target, repos);
+                }
+            });
+        });
+    </script>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2020 - Стефан -
+        <span class="credit">Generated using <a href="https://github.com/jbreckmckye/hexo-theme-octo">Octo theme</a> for <a href="http://hexo.io">Hexo</a></span>
+    </p>
+</footer>
+
+
+
+</body>
+</html>
